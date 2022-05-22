@@ -1,7 +1,8 @@
 import { IPartner } from "../models/Partner";
 
 export interface IPartnersRepository {
-  getAll(pagenumber: number): Promise<IPartner[] | null>;
+  getAllFiltered(rangeInKilo: number, coordinates: []): Promise<IPartner[] | null>;
+  getAll(): Promise<IPartner[] | null>;
   getById(id: number): Promise<IPartner | null>;
   add(customer: IPartner, file: any): Promise<IPartner | null>;
   delete(id: number): Promise<boolean | null>;

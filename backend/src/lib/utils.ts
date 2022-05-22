@@ -8,7 +8,7 @@ const formatDate = (date: any, format: string = "YYYY-MM-DD") => {
 
 const readJsonFile = async (fileName: string) => {
   try {
-    const fullPathName = path.resolve(path.join("../assets", "/", fileName + ".json"));
+    const fullPathName = path.resolve(path.join("src", "assets", fileName + ".json"));
     const jsonData = await fsExtra.readJson(fullPathName);
     return jsonData;
   } catch (error) {

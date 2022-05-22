@@ -1,46 +1,49 @@
 import { PatnersService } from "../services/PartnersService";
 import { Request, Response } from "express";
-import _ from "lodash";
 import { ServerException, BadRequestException, NotFoundException } from "../../lib/custom-errors";
 import Template from "../global/response";
 import APIError from "../global/response/apierror";
 import { Logger } from "../../lib/LoggerImpl";
-import Joi from "joi";
+import _ from "lodash";
 
-const expenseService = new PatnersService();
+
+const partnerService = new PatnersService();
 const logger = new Logger();
 
 class PartnersController {
   public static listAll(req: Request, res: Response, next: any) {
-    expenseService
-      .getAll()
-      .then((expenses) => {
-        if (!_.isEmpty(expenses)) {
+    //let range = 2;//range wihin 10 kilo meters
+    let coordinates = req.query["coordinates"] as [] || [];//[51.5144636, -0.142571];
+    let range = Number(req.query["range"]) || 0;
+    partnerService
+      .getAllFiltered(range, coordinates)
+      .then((partners) => {
+        if (!_.isEmpty(partners)) {
           res.json(
-            Template.success(expenses, "Expense retrevied succesfully")
+            Template.success(partners, "Partners retrevied succesfully")
           );
         } else {
           res.json(Template.success([], "No records found"));
         }
       })
       .catch((err) => {
+        logger.log(err);
         next(new ServerException("error occured"));
       });
   }
 
 
-
   public static getById(req: Request, res: Response, next: any) {
-    expenseService
+    partnerService
       .getById(Number(req.params["id"]))
-      .then((expense) => {
-        if (expense) {
+      .then((partner) => {
+        if (partner) {
           res.json(
-            Template.success(expense, "Expense retrieved succesfully")
+            Template.success(partner, "Partner retrieved succesfully")
           );
         }
         else {
-          next(new BadRequestException(`Expense with id: ${req.params["id"]} Not Found`))
+          next(new BadRequestException(`partner with id: ${req.params["id"]} Not Found`))
         }
       })
       .catch((err) => {

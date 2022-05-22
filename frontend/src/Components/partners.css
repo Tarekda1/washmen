@@ -1,0 +1,5 @@
+.partners__list {
+  list-style-type: none;
+  padding: 5px 0;
+  border-bottom: 1px solid lightgrey;
+}

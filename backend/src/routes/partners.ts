@@ -1,13 +1,13 @@
 import { Router } from "express";
-import ExpenseController from "../app/controllers/ExpenseController";
+import PartnersController from "../app/controllers/PartnersController";
 
 const router = Router();
 
-// Get all users
-router.get("/all", ExpenseController.listAll);
-router.get("/:id", ExpenseController.getById);
-router.post("/", ExpenseController.addNew);
-router.put("/:id", ExpenseController.updateExpense);
-router.delete("/:id", ExpenseController.deleteExpense);
+// Get all partners
+router.get("/all", PartnersController.listAll);
+router.get("/:id", PartnersController.getById);
+router.post("/", PartnersController.addNew);
+router.put("/:id", PartnersController.updateExpense);
+router.delete("/:id", PartnersController.deleteExpense);
 
 export default router;
