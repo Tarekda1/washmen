@@ -1,5 +1,5 @@
-import React from "react";
-import { usePartners } from "../hooks/usePartners";
+import React, { useEffect, useState } from "react";
+import { usePartners } from "../hooks/UsePartners";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -14,6 +14,7 @@ const Partners = () => {
   const { partners, isLoading, isError } = usePartners();
   if (isLoading) return <div>Loading ...</div>;
   if (isError) return <div>Error while loading data</div>;
+
   return (
     <div>
       <TableContainer component={Paper}>
